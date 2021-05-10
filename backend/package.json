@@ -1,0 +1,19 @@
+{
+  "name": "sqli",
+  "version": "1.0.0",
+  "description": "ISE-426 HW",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/odilektasli/SQLi.git"
+  },
+  "author": "Onuralp Enes Oz , Ozer Dilektasli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/odilektasli/SQLi/issues"
+  },
+  "homepage": "https://github.com/odilektasli/SQLi#readme"
+}
