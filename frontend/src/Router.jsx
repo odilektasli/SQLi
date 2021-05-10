@@ -7,16 +7,18 @@ import {
 } from 'react-router-dom'
 
 import Home from './components/Home'
-
-class Router extends React.Component{
+import styles from "./App.module.css"
+class Router extends React.Component {
     render() {
-        return(
+        return (
             <BrowserRouter>
-                <Switch>
-                    <Route path="/">
-                        <Home />
-                    </Route>
-                </Switch>
+                <div className={styles.App}>
+                    <Switch >
+                        <Route path="/">
+                            <Home />
+                        </Route>
+                    </Switch>
+                </div>
             </BrowserRouter>
         )
     }
