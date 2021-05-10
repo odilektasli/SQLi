@@ -12,12 +12,11 @@ class Router extends React.Component{
     render() {
         return(
             <BrowserRouter>
-            <Switch>
-                <Route path="/">
-                    <Home />
-                </Route>
-            </Switch>
-            
+                <Switch>
+                    <Route path="/">
+                        <Home />
+                    </Route>
+                </Switch>
             </BrowserRouter>
         )
     }
