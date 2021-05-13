@@ -17,18 +17,22 @@ class LoggedIn extends React.Component {
             uname: "",
             pswd: "",
             load: false,
-            success: false
+            success: false,
+            items: undefined
         }
 
         this.loadForm = () => {
             this.setState({ load: true })
         }
     }
+    componentDidMount() {
+        this.setState({ items: JSON.parse(localStorage.getItem("items")) })
+    }
     render() {
         return (
             <div className={styles.amselalesi}>
                 <h1>Injection: Protected</h1>
-                <h2 className>Welcome {localStorage.getItem("name")}</h2>
+                <h2 className>Welcome {JSON.parse(localStorage.getItem("items")).map(element => (<p>{element.NAME}{element.UNAME}</p>))}</h2>
                 <Button color="dark" onClick={() => this.setState({ load: !this.state.load })}>{this.state.load ? 'Close Form' : 'Re-Login'}</Button>
 
                 {

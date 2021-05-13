@@ -33,6 +33,7 @@ router.post('/login', (req, res) => {
 
 router.post('/sqli', (req, res) => {
     
+    console.log("pw", req.body.password, "uname",req.body.uname)
     let query = `
         SELECT
             *
@@ -43,7 +44,6 @@ router.post('/sqli', (req, res) => {
             user.UNAME = '${req.body.uname}'
             
     `
-    console.log(query)
     db.query(query, (err,result)=>{
         if(err){
             console.log(err)
@@ -51,7 +51,8 @@ router.post('/sqli', (req, res) => {
             if(result[0]){
                 res.send(result)
             }else{
-                res.send("Not Found")
+                console.log("notfound?")
+                res.send(404)
             }
         }
     })
