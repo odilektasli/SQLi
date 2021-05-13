@@ -1,16 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
-html,
-body {
-  height: 100%;
-}
-body {
-  font-family: "Roboto", sans-serif;
-}
-.demo-container {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"); */
+
+.amselalesi {
+  padding: 70px 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 70px 0;
+  text-align: center;
+  background-image: linear-gradient(to top, #2c2fe6 0%, #b2e2e5 100%);
 }
 .btn-lg {
   padding: 12px 26px;

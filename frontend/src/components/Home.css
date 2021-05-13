@@ -9,6 +9,8 @@ body {
 }
 .demo-container {
   overflow-x: hidden;
+  padding: 70px 0;
+  text-align: center;
 }
 .btn-lg {
   padding: 12px 26px;

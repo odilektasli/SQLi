@@ -3,14 +3,12 @@ import {
   Button,
   Input,
   Label,
-  Container,
   Row,
   Col,
   Form,
-  Alert
 } from 'reactstrap'
-
-import './Login.css'
+import { Redirect } from "react-router-dom"
+import './Home.css'
 
 class Home extends React.Component {
   constructor(props) {
@@ -18,18 +16,38 @@ class Home extends React.Component {
     this.state = {
       uname: "",
       pswd: "",
-      success: true
+      success: false
     }
 
-    this.getStates = () => {
-      console.log("state", this.state)
+    this.submit = () => {
+      fetch('/backend/.......', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...this.state })
+      }).then(res => {
+        if (res.ok) {
+          return (res.json())
+        } else {
+          this.setState({ success: true })
+          localStorage.setItem("name", "özer")
+          alert("Failed to login")
+          throw new Error('Failed to login')
+        }
+      }).then(data => {
+        this.setState(() => localStorage.setItem("name", data), { success: true })
+
+      }).catch(err => {
+        console.error(err.message)
+      })
     }
   }
   render() {
     return (
-      <div >
-        <Alert color="success" isOpen={this.state.success} toggle={() => this.setState({ success: false })} >Login succesful</Alert>
+      this.state.success ? <Redirect to="/loggedin" /> :
         <div className="demo-container">
+          <h1>Injection: Not Protected</h1>
           <Row >
             <Col className="pt-3 d-flex justify-content-center">
               <div className="text-center image-size-small position-relative">
@@ -47,7 +65,7 @@ class Home extends React.Component {
                   <Input className="mb-3" onChange={(event) => this.setState({ uname: event.target.value })}></Input>
                   <Label>Password</Label>
                   <Input onChange={(event) => this.setState({ pswd: event.target.value })}></Input>
-                  <Button className="mt-3 btn btn-primary btn-lg w-100 shadow-lg" color="dark" onClick={() => this.getStates()}>SIGN IN</Button>
+                  <Button className="mt-3 btn btn-primary btn-lg w-100 shadow-lg" color="dark" onClick={() => this.submit()}>SIGN IN</Button>
                   <p className="m-0 py-4"><a href="" className="text-muted">Forget password?</a></p>
                 </Form>
                 <div className="text-center pt-4">
@@ -56,14 +74,7 @@ class Home extends React.Component {
               </div>
             </Col>
           </Row>
-
         </div>
-      </div>
-
-
-
-
-
     )
   }
 }
