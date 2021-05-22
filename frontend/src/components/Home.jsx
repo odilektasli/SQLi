@@ -19,6 +19,7 @@ class Home extends React.Component {
       success: false
     }
 
+
     this.submit = () => {
       const { uname, password } = this.state
       const postObj = { uname, password }
@@ -37,12 +38,17 @@ class Home extends React.Component {
         }
       }).then(data => {
         localStorage.setItem("items", JSON.stringify(data))
-      }).finally(
-        this.setState({ success: true })
-      ).catch(err => {
+        {
+
+          this.setState({ success: true })
+        }
+      }).catch(err => {
         console.error(err.message)
       })
     }
+  }
+  componentDidMount() {
+    localStorage.removeItem("items")
   }
   render() {
     return (
