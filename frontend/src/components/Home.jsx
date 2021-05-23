@@ -9,6 +9,7 @@ import {
 } from 'reactstrap'
 import { Redirect } from "react-router-dom"
 import './Home.css'
+import Loader from './Loader'
 
 class Home extends React.Component {
   constructor(props) {
@@ -16,35 +17,40 @@ class Home extends React.Component {
     this.state = {
       uname: "",
       password: "",
-      success: false
+      success: false,
+      loader: false
     }
 
 
     this.submit = () => {
       const { uname, password } = this.state
       const postObj = { uname, password }
-      fetch('/api/sqli', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(postObj)
-      }).then(res => {
-        if (res.ok) {
-          return (res.json())
-        } else {
-          alert("Failed to login")
-          throw new Error('Failed to login')
-        }
-      }).then(data => {
-        localStorage.setItem("items", JSON.stringify(data))
-        {
-
-          this.setState({ success: true })
-        }
-      }).catch(err => {
-        console.error(err.message)
+      this.setState({ loader: true }, () => {
+        fetch('/api/sqli', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(postObj)
+        }).then(res => {
+          if (res.ok) {
+            alert("LOGIN SUCCESFUL")
+            return (res.json())
+          } else {
+            alert("LOGIN FAILED")
+            throw new Error('Failed to login')
+          }
+        }).then(data => {
+          localStorage.setItem("items", JSON.stringify(data))
+          {
+            this.setState({ success: true, loader: false })
+          }
+        }).catch(err => {
+          this.setState({ loader: false })
+          console.error(err.message)
+        })
       })
+
     }
   }
   componentDidMount() {
@@ -68,6 +74,7 @@ class Home extends React.Component {
                 <h3 className="mb-2 text-center pt-5">Sign In</h3>
                 <p className="text-center lead">Sign In to manage all your devices</p>
                 <Form>
+                  {this.state.loader ? <Loader /> : undefined}
                   <Label >Username</Label>
                   <Input className="mb-3" onChange={(event) => this.setState({ uname: event.target.value })}></Input>
                   <Label>Password</Label>

@@ -23,9 +23,10 @@ router.post('/login', (req, res) => {
             console.log(err)
         }else{
             if(result[0]){
+                console.log(result)
                 res.send(result)
             }else{
-                res.send("Not Found")
+                res.sendStatus(404)
             }
         }
     })
