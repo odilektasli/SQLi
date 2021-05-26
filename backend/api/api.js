@@ -8,7 +8,6 @@ const md5 = require('md5')
 // Root index announcer for /api
 router.post('/login', (req, res) => {
     let passw = Crypto.createHash('sha512').update(req.body.password).digest('base64')
-    console.log("geldik gibi: ",passw)
     let query = `
         SELECT
             *
@@ -41,14 +40,16 @@ router.post('/sqli', (req, res) => {
         FROM 
             user
         WHERE
-            user.PASSWD = '${Crypto.createHash('sha512').update(req.body.password).digest('base64')}' AND
-            user.UNAME = '${req.body.uname}'
+            user.UNAME = '${req.body.uname}' AND user.PASSWD = '${Crypto.createHash('sha512').update(req.body.password).digest('base64')}' 
+            
+            
             
     `
     db.query(query, (err,result)=>{
         if(err){
             console.log(err)
         }else{
+            console.log(query)
             if(result[0]){
                 res.send(result)
             }else{
